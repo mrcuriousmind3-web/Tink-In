@@ -1,0 +1,2 @@
+Extension: C:\Users\ACER\OneDrive\Desktop\CodeOfCrt\Tink-In.crx
+Key File: C:\Users\ACER\OneDrive\Desktop\CodeOfCrt\Tink-In.pem

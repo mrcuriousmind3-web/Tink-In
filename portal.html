@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tink-In — Tinkercad Auto-Login Portal</title>
+  <link rel="icon" type="image/png" href="icons/icon48.png">
+  <link rel="stylesheet" href="portal.css">
+</head>
+<body>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <div class="container">
+    <!-- Top Header -->
+    <header class="portal-header">
+      <div class="brand">
+        <img src="icons/icon48.png" alt="Tink-In Logo" class="brand-icon">
+        <div class="brand-text">
+          <h1>Tink-In</h1>
+          <span class="tagline">Tinkercad Classroom Auto-Login Portal</span>
+        </div>
+      </div>
+      <div class="header-badges">
+        <div class="status-indicator ready" id="connection-status">
+          <span class="status-dot"></span>
+          <span id="connection-text">Extension Connected</span>
+        </div>
+        <button id="btn-theme-toggle" class="btn-icon" title="Toggle Theme">🌙</button>
+      </div>
+    </header>
+
+    <!-- Auto Login Notice Banner (Appears when Auto-Login On Open is active) -->
+    <div id="autologin-banner" class="autologin-banner hidden">
+      <div class="banner-content">
+        <div class="banner-icon-spin">⚡</div>
+        <div class="banner-text">
+          <strong>Auto-Login is Active!</strong> Launching Tinkercad with your saved credentials in <span id="countdown-number" class="countdown-highlight">2</span>s...
+        </div>
+      </div>
+      <div class="banner-actions">
+        <button id="btn-cancel-countdown" class="btn btn-secondary btn-sm">Pause / Cancel</button>
+        <button id="btn-now-countdown" class="btn btn-primary btn-sm">Launch Now ➔</button>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <main class="portal-grid">
+      <!-- Left Column: Login Credentials Card -->
+      <section class="card credentials-card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="card-icon">🔑</span>
+            <h2>Class Credentials</h2>
+          </div>
+          <span class="badge" id="active-profile-pill">Active Profile</span>
+        </div>
+
+        <form id="login-form" class="portal-form" onsubmit="return false;">
+          <div class="form-group">
+            <label for="input-profile-name">
+              <span>Profile / Class Name</span>
+              <span class="label-hint">Optional</span>
+            </label>
+            <input 
+              type="text" 
+              id="input-profile-name" 
+              placeholder="e.g. 7th Grade Robotics or 3D Design"
+              autocomplete="off"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="input-class-code">
+              <span>Join Class Code</span>
+              <span class="label-hint text-cyan">Required (9-12 chars)</span>
+            </label>
+            <div class="input-with-icon">
+              <input 
+                type="text" 
+                id="input-class-code" 
+                placeholder="e.g. 982 K76 341 or ABC123XYZ" 
+                required 
+                maxlength="16"
+                autocomplete="off"
+                spellcheck="false"
+              >
+              <button type="button" id="btn-paste-code" class="btn-paste" title="Paste from Clipboard">📋 Paste</button>
+            </div>
+            <div class="input-helper">The code provided by your teacher to join the Tinkercad class.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="input-student-id">
+              <span>Student ID / Nickname</span>
+              <span class="label-hint text-cyan">Required</span>
+            </label>
+            <div class="input-with-icon">
+              <input 
+                type="text" 
+                id="input-student-id" 
+                placeholder="e.g. AlexSmith or student04" 
+                required 
+                maxlength="64"
+                autocomplete="off"
+                spellcheck="false"
+              >
+            </div>
+            <div class="input-helper">Your personal student seat identifier or nickname in this class.</div>
+          </div>
+
+          <!-- Feature Toggles -->
+          <div class="toggles-box">
+            <label class="toggle-row">
+              <div class="toggle-info">
+                <strong>Auto-Login on Site Open</strong>
+                <span>Automatically open Tinkercad and log in whenever this website is opened</span>
+              </div>
+              <input type="checkbox" id="toggle-autologin-on-open" class="switch-input">
+              <span class="switch-slider"></span>
+            </label>
+
+            <label class="toggle-row">
+              <div class="toggle-info">
+                <strong>⚡ Turbo Mode (Instant Launch)</strong>
+                <span>Skip countdown and launch Tinkercad at maximum speed</span>
+              </div>
+              <input type="checkbox" id="toggle-turbo-mode" class="switch-input" checked>
+              <span class="switch-slider"></span>
+            </label>
+
+            <label class="toggle-row">
+              <div class="toggle-info">
+                <strong>Auto-fill on Tinkercad.com</strong>
+                <span>Automatically log in if you visit tinkercad.com/joinclass directly</span>
+              </div>
+              <input type="checkbox" id="toggle-autologin-on-tinkercad" class="switch-input" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="form-actions">
+            <button type="button" id="btn-launch-login" class="btn btn-primary btn-lg btn-glow">
+              <span class="btn-icon-symbol">🚀</span>
+              <span>Launch & Auto-Login</span>
+            </button>
+            <button type="button" id="btn-save-credentials" class="btn btn-secondary btn-lg">
+              <span>💾 Save Profile</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Right Column: Profiles & Status -->
+      <section class="sidebar-column">
+        <!-- Saved Profiles Card -->
+        <div class="card profiles-card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="card-icon">👥</span>
+              <h2>Saved Class Profiles</h2>
+            </div>
+            <button id="btn-new-profile" class="btn btn-ghost btn-sm" title="Add New Class">+ Add Class</button>
+          </div>
+          <div id="profiles-list" class="profiles-list">
+            <!-- Dynamic profile items -->
+          </div>
+        </div>
+
+        <!-- Live Activity Log Card -->
+        <div class="card log-card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="card-icon">📋</span>
+              <h2>Activity & Status</h2>
+            </div>
+            <button id="btn-clear-log" class="btn btn-ghost btn-xs">Clear</button>
+          </div>
+          <div id="log-output" class="log-output">
+            <div class="log-entry info">
+              <span class="log-time">00:00:00</span>
+              <span class="log-msg">Portal ready. Enter your Class Code and Student ID above.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer Instructions -->
+    <footer class="portal-footer">
+      <div class="footer-tips">
+        <div class="tip-item">
+          <strong>💡 Bookmark This Page:</strong> Bookmark this website in your Chrome bookmarks bar. Whenever you click it, it automatically opens and logs you into your Tinkercad classroom!
+        </div>
+        <div class="tip-item">
+          <strong>🛡️ Safe & Private:</strong> Your class code and student ID are stored locally in your browser and are only used to authenticate directly on Tinkercad.com.
+        </div>
+      </div>
+      <div class="footer-credits">
+        <span>Tink-In &bull; Tinkercad Automated Classroom Companion</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="portal.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,176 @@
+/* Tink-In: Floating HUD and notification styles for Tinkercad */
+
+#tinkin-hud-root {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 99999999;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  pointer-events: auto;
+}
+
+.tinkin-hud-card {
+  width: 320px;
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(14, 165, 233, 0.2);
+  border-radius: 14px;
+  padding: 14px 16px;
+  color: #f8fafc;
+  font-size: 13px;
+  line-height: 1.4;
+  box-sizing: border-box;
+  animation: tinkin-slide-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s ease;
+}
+
+@keyframes tinkin-slide-in {
+  from {
+    transform: translateY(-20px) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.tinkin-hud-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.tinkin-hud-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.2px;
+  color: #38bdf8;
+}
+
+.tinkin-hud-badge {
+  background: linear-gradient(135deg, #0284c7, #2563eb);
+  color: #ffffff;
+  padding: 2px 7px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tinkin-hud-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 2px 4px;
+  font-size: 15px;
+  line-height: 1;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+.tinkin-hud-close:hover {
+  color: #f1f5f9;
+}
+
+.tinkin-hud-status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tinkin-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(56, 189, 248, 0.2);
+  border-top-color: #38bdf8;
+  border-radius: 50%;
+  animation: tinkin-spin 0.75s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes tinkin-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tinkin-status-text {
+  font-weight: 500;
+  color: #e2e8f0;
+  word-break: break-word;
+}
+
+/* Steps progress bar */
+.tinkin-steps {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  margin-bottom: 6px;
+}
+
+.tinkin-step-dot {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  transition: background-color 0.3s;
+}
+
+.tinkin-step-dot.active {
+  background: #38bdf8;
+  box-shadow: 0 0 6px #38bdf8;
+}
+
+.tinkin-step-dot.completed {
+  background: #10b981;
+}
+
+.tinkin-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 6px;
+}
+
+.tinkin-meta span strong {
+  color: #cbd5e1;
+}
+
+/* Error state */
+.tinkin-hud-card.error {
+  border-color: #ef4444;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(239, 68, 68, 0.25);
+}
+
+.tinkin-hud-card.error .tinkin-hud-brand {
+  color: #f87171;
+}
+
+.tinkin-hud-card.error .tinkin-status-text {
+  color: #fca5a5;
+}
+
+/* Success state */
+.tinkin-hud-card.success {
+  border-color: #10b981;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(16, 185, 129, 0.25);
+}
+
+.tinkin-hud-card.success .tinkin-hud-brand {
+  color: #34d399;
+}
+
+.tinkin-hud-card.success .tinkin-status-text {
+  color: #a7f3d0;
+}
+

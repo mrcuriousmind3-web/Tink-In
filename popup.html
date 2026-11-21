@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tink-In Quick Access</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="brand">
+        <img src="icons/icon32.png" alt="Tink-In" class="logo">
+        <div class="brand-info">
+          <h1>Tink-In</h1>
+          <span>Tinkercad Auto-Login</span>
+        </div>
+      </div>
+      <button id="btn-open-portal" class="btn-icon" title="Open Custom Web Portal">🌐 Portal</button>
+    </header>
+
+    <!-- Profile Selector -->
+    <div class="field-group">
+      <label for="select-profile">Active Class Profile</label>
+      <select id="select-profile" class="custom-select"></select>
+    </div>
+
+    <!-- Quick Credentials Form -->
+    <div class="credentials-box">
+      <div class="field-group">
+        <label for="popup-class-code">Class Code</label>
+        <input type="text" id="popup-class-code" placeholder="e.g. 982 K76 341" spellcheck="false">
+      </div>
+
+      <div class="field-group">
+        <label for="popup-student-id">Student ID / Nickname</label>
+        <input type="text" id="popup-student-id" placeholder="e.g. student01" spellcheck="false">
+      </div>
+    </div>
+
+    <!-- Toggles -->
+    <div class="toggle-group">
+      <label class="toggle-label">
+        <span>Auto-login when opening site</span>
+        <input type="checkbox" id="popup-toggle-autologin">
+      </label>
+    </div>
+
+    <!-- Status Pill -->
+    <div id="popup-status" class="status-pill ready">
+      <span class="status-indicator-dot"></span>
+      <span id="popup-status-text">Ready to launch</span>
+    </div>
+
+    <!-- Actions -->
+    <div class="popup-actions">
+      <button id="btn-popup-launch" class="btn btn-primary btn-full">
+        <span>⚡ Launch Tinkercad</span>
+      </button>
+      <div class="btn-subgroup">
+        <button id="btn-popup-save" class="btn btn-secondary">💾 Save</button>
+        <button id="btn-popup-dashboard" class="btn btn-secondary">🚪 Go to Dashboard</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+
