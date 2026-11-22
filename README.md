@@ -37,11 +37,16 @@
 2. Navigate to `chrome://extensions/` in your address bar.
 3. Turn on **"Developer mode"** using the toggle switch in the top right corner.
 4. Click the **"Load unpacked"** button in the top left.
-5. Select this project folder:
-   ```
-   c:\Users\ACER\OneDrive\Desktop\CodeOfCrt\Tink-In
-   ```
+5. Select the project folder:
 6. The **Tink-In** extension will appear in your extensions list! Pin it to your Chrome toolbar for quick access.
+
+
+
+https://github.com/user-attachments/assets/5b311c55-9914-4797-91ee-e4fb3f86c3bf
+
+
+
+
 
 ---
 
